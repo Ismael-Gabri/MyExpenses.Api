@@ -21,6 +21,7 @@ namespace MyExpenses.Domain.Entities
             EntryDate = DateTime.UtcNow;
             _incomes = new List<IncomeSource>();
             _expenses = new List<Expense>();
+            Notifications = new Dictionary<string, string>();
         }
 
         public Name Name { get; private set; }

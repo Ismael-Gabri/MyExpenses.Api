@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyExpenses.Domain.Entities
 {
-    public class Entity
+    public abstract class Entity
     {
         public Entity()
         {

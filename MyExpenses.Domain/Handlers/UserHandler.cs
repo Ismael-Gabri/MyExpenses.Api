@@ -44,9 +44,14 @@ namespace MyExpenses.Domain.Handlers
             var user = new User(name, email);
 
             //Validar entidades e VOs
-            Notifications.Add(name.Notifications);
-            Notifications.Add(email.Notifications);
-            Notifications.Add(user.Notifications);
+            if(name.Notifications.Count > 0)
+            {
+                Notifications.Add(name.Notifications);
+            }
+            if(email.Notifications.Count > 0)
+            {
+                Notifications.Add(email.Notifications);
+            }
 
             if (Notifications.Count > 0)
                 return null;
