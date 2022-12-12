@@ -12,7 +12,7 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
         public Guid User { get; set; }
         public Guid ExpenseId { get; set; }
 
-        public bool Validate()
+        public bool Valid()
         {
             throw new NotImplementedException();
         }

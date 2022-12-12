@@ -18,48 +18,46 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
             FirstName = firstName;
             LastName = lastName;
             Email = email;
+            Notifications = new Dictionary<string, string>();
         }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public IDictionary<string, string> Notifications { get; private set; }
+        public IDictionary<string, string> Notifications { get; set; }
 
-        public bool Validate()
+        public bool Valid()
         {
             if (FirstName.Length < 3)
             {
                 Notifications.Add("FirstName", "O nome deve conter mais que 3 characteres");
-                return false;
             }
             if (FirstName.Length > 20)
             {
                 Notifications.Add("FirstName", "O nome deve conter menos que 20 characteres");
-                return false;
             }
             if (LastName.Length < 3)
             {
                 Notifications.Add("LastName", "O sobrenome deve conter mais que 3 characteres");
-                return false;
             }
             if (LastName.Length > 20)
             {
                 Notifications.Add("LastName", "O sobrenome deve conter menos que 20 characteres");
-                return false;
             }
             if (FirstName.Any(char.IsDigit))
             {
                 Notifications.Add("FirstName", "O nome não deve conter números");
-                return false;
             }
             if (LastName.Any(char.IsDigit))
             {
                 Notifications.Add("LastName", "O sobrenome não deve conter números");
-                return false;
             }
             if(!IsValidEmail(Email))
             {
                 Notifications.Add("Email", "E-mail inválido");
+            }
+            if(Notifications.Count > 0)
+            {
                 return false;
             }
             else

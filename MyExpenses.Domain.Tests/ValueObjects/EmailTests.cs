@@ -1,4 +1,5 @@
-﻿using MyExpenses.Domain.ValueObjects;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyExpenses.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -14,7 +14,7 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
         public decimal Price { get; set; }
         public bool IsSubscription { get; set; }
 
-        public bool Validate()
+        public bool Valid()
         {
             throw new NotImplementedException();
         }

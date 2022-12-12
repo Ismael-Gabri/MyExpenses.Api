@@ -13,9 +13,9 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
         public Guid User { get; set; }
         public string Title { get; set; }
         public decimal Income { get; set; }
-        public IDictionary<string, string> Notifications { get; private set; }
+        public IDictionary<string, string> Notifications { get; set; }
 
-        public bool Validate()
+        public bool Valid()
         {
             if (Title == "" || Title == null)
             {

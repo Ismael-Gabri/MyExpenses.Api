@@ -8,6 +8,6 @@ namespace MyExpenses.Domain.Commands.UserCommands.Contracts
 {
     public interface ICommand
     {
-        bool Validate();
+        bool Valid();
     }
 }
