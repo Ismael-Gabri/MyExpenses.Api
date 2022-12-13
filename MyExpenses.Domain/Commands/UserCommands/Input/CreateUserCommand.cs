@@ -24,7 +24,7 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public IDictionary<string, string> Notifications { get; set; }
+        public IDictionary<string, string>? Notifications { get; set; }
 
         public bool Valid()
         {

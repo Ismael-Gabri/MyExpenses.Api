@@ -12,6 +12,7 @@ namespace MyExpenses.Domain.Entities
         {
             Title = title;
             Income = income;
+            Notifications = new Dictionary<string, string>();
 
             if (title == "" || title == null)
                 Notifications.Add("IncomeSource Title", "Title vazio ou nulo");
@@ -19,6 +20,7 @@ namespace MyExpenses.Domain.Entities
             if (title.Length > 15)
                 Notifications.Add("Expense Title", "Título muito grande");
         }
+
         public string Title { get; private set; }
         public decimal Income { get; private set; }
         public IDictionary<string, string> Notifications { get; private set; }

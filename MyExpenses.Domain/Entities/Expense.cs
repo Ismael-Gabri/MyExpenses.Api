@@ -13,6 +13,7 @@ namespace MyExpenses.Domain.Entities
             Title = title;
             Price = price;
             IsSubscription = false;
+            Notifications = new Dictionary<string, string>();
 
             if (title == "" || title == null)
                 Notifications.Add("Expense Title", "Título vazio ou nulo");
