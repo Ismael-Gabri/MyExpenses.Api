@@ -1,5 +1,4 @@
-﻿using MyExpenses.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyExpenses.Domain.Queries
 {
-    public class ListUserQueryResult
+    public class GetUserQueryResult
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

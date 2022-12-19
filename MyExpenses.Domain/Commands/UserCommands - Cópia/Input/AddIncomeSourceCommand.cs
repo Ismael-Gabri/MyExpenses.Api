@@ -10,10 +10,10 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
 {
     public class AddIncomeSourceCommand : ICommand
     {
-        public Guid UserId { get; set; }
+        public Guid User { get; set; }
         public string Title { get; set; }
         public decimal Income { get; set; }
-        public IDictionary<string, string>? Notifications { get; set; }
+        public IDictionary<string, string> Notifications { get; set; }
 
         public bool Valid()
         {

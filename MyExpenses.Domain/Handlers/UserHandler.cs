@@ -65,5 +65,37 @@ namespace MyExpenses.Domain.Handlers
             //Retornar resultado para a tela
             return new CreateUserCommandResult(user.Id, name.FirstName, name.LastName, email.Address);
         }
+
+        public ICommandResult Handle(AddIncomeSourceCommand command)
+        {
+            var income = new IncomeSource(command.Title, command.Income, command.UserId);
+
+            if(income.Notifications.Count > 0)
+            {
+                Notifications.Add(income.Notifications);
+                return null;
+            }
+
+            //Persistir no banco
+            _repository.Save(income);
+
+            return new CreateIncomeCommandResult(income.Id, income.Title, income.Income);
+        }
+
+        public ICommandResult Handle(AddExpenseCommand command)
+        {
+            var expense = new Expense(command.Title, command.Price, command.UserId);
+
+            if(expense.Notifications.Count > 0)
+            {
+                Notifications.Add(expense.Notifications);
+                return null;
+            }
+
+            //Persistir no banco
+            _repository.Save(expense);
+
+            return new CreateExpenseCommandResult(expense.Id, expense.Title, expense.Price, expense.IsSubscription);
+        }
     }
 }

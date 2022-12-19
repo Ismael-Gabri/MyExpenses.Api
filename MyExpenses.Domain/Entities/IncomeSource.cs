@@ -8,10 +8,11 @@ namespace MyExpenses.Domain.Entities
 {
     public class IncomeSource : Entity
     {
-        public IncomeSource(string title, decimal income)
+        public IncomeSource(string title, decimal income, Guid userId)
         {
             Title = title;
             Income = income;
+            UserId = userId;
             Notifications = new Dictionary<string, string>();
 
             if (title == "" || title == null)
@@ -21,6 +22,7 @@ namespace MyExpenses.Domain.Entities
                 Notifications.Add("Expense Title", "Título muito grande");
         }
 
+        public Guid UserId { get; set; }
         public string Title { get; private set; }
         public decimal Income { get; private set; }
         public IDictionary<string, string> Notifications { get; private set; }

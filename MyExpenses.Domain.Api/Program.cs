@@ -1,3 +1,4 @@
+using MyExpenses.Domain.Handlers;
 using MyExpenses.Domain.Infra.Contexts;
 using MyExpenses.Domain.Infra.Repositories;
 using MyExpenses.Domain.Infra.Services;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<DataContext, DataContext>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<UserHandler, UserHandler>();
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 builder.Services.AddControllers();

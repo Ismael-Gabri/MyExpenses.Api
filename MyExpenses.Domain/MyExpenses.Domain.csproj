@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Commands\UserCommands - Cópia\**" />
+    <EmbeddedResource Remove="Commands\UserCommands - Cópia\**" />
+    <None Remove="Commands\UserCommands - Cópia\**" />
+  </ItemGroup>
+
 </Project>

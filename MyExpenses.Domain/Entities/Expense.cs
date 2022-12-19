@@ -8,23 +8,25 @@ namespace MyExpenses.Domain.Entities
 {
     public class Expense : Entity
     {
-        public Expense(string title, decimal price)
+        public Expense(string title, decimal price, Guid userId)
         {
             Title = title;
             Price = price;
+            UserId = userId;
             IsSubscription = false;
             Notifications = new Dictionary<string, string>();
 
             if (title == "" || title == null)
                 Notifications.Add("Expense Title", "Título vazio ou nulo");
 
-            if(title.Length > 15)
+            if (title.Length > 15)
                 Notifications.Add("Expense Title", "Título muito grande");
 
             if (price == null)
                 Notifications.Add("Expense Price", "Preço não pode ser nulo");
         }
 
+        public Guid UserId { get; set; }
         public string Title { get; private set; }
         public decimal Price { get; private set; }
         public bool IsSubscription { get; private set; }

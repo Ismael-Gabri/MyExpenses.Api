@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyExpenses.Domain.Commands.UserCommands.Input;
+using MyExpenses.Domain.Commands.UserCommands.Output;
 using MyExpenses.Domain.Entities;
+using MyExpenses.Domain.Handlers;
+using MyExpenses.Domain.Queries;
+using MyExpenses.Domain.Repositories;
 using MyExpenses.Domain.ValueObjects;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -9,66 +13,65 @@ namespace MyExpenses.Domain.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IUserRepository _repository;
+        private readonly UserHandler _handler;
+        public UserController(IUserRepository repository, UserHandler handler)
+        {
+            _repository = repository;
+        }
         //GET
 
         [HttpGet("users")]
-        public List<User> Get()
+        public IEnumerable<ListUserQueryResult> Get()
         {
-            var name = new Name("Ismael", "Castro");
-            var email = new Email("ismaelgabri03@hotmail.com");
-            var user = new User(name, email);
-
-            var users = new List<User>();
-            users.Add(user);
-
-            return users;
+            return _repository.Get();
         }
 
         [HttpGet("users/{id:Guid}")]
-        public User GetById([FromRoute] Guid id)
+        public GetUserQueryResult GetById([FromRoute] Guid id)
         {
-            var name = new Name("Ismael", "Castro");
-            var email = new Email("ismaelgabri03@hotmail.com");
-            var user = new User(name, email);
-
-            return user;
+            return _repository.Get(id);
         }
 
         [HttpGet("users/expenses")]
-        public IReadOnlyCollection<Expense> GetExpenses([FromRoute] Guid id)
+        public IEnumerable<ListExpensesQueryResult> GetExpenses([FromRoute] Guid id)
         {
-            var name = new Name("Ismael", "Castro");
-            var email = new Email("ismaelgabri03@hotmail.com");
-            var user = new User(name, email);
-
-            var expense = new Expense("Luz", 65);
-            user.AddExpense(expense);
-
-            return user.Expenses;
+            return _repository.GetExpenses(id);
         }
 
         [HttpGet("users/incomes")]
-        public IReadOnlyCollection<IncomeSource> GetIncomes([FromRoute] Guid id)
+        public IEnumerable<ListIncomeQueryResult> GetIncomes([FromRoute] Guid id)
         {
-            var name = new Name("Ismael", "Castro");
-            var email = new Email("ismaelgabri03@hotmail.com");
-            var user = new User(name, email);
-
-            var income = new IncomeSource("Trabalho", 2000);
-            user.AddIncomeSource(income);
-
-            return user.IncomeSources;
+            return _repository.GetIncomes(id);
         }
 
         //POST
 
         [HttpPost("users")]
-        public User Post([FromBody] CreateUserCommand command) 
+        public object Post([FromBody] CreateUserCommand command) //Create user command result, não object
         {
-            var name = new Name(command.FirstName, command.LastName);
-            var email = new Email(command.Email);
-            var user = new User(name, email);
-            return user;
+            var result = (CreateUserCommandResult)_handler.Handle(command);
+            if (_handler.Notifications.Count > 0)
+                return BadRequest(_handler.Notifications);
+            return result;
+        }
+
+        [HttpPost("user/incomes")]
+        public object Post([FromBody] AddIncomeSourceCommand command)
+        {
+            var result = (CreateIncomeCommandResult)_handler.Handle(command);
+            if(_handler.Notifications.Count > 0) //Testar if _handler = null
+                return BadRequest(_handler.Notifications);
+            return result;
+        }
+
+        [HttpPost("user/expenses")]
+        public object Post([FromBody] AddExpenseCommand command)
+        {
+            var result = _handler.Handle(command);
+            if(_handler.Notifications.Count > 0)
+                return BadRequest(_handler.Notifications);
+            return result;
         }
 
         //PUT

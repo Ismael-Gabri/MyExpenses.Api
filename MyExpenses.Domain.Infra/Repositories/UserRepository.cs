@@ -1,7 +1,9 @@
 ﻿using Dapper;
 using MyExpenses.Domain.Entities;
 using MyExpenses.Domain.Infra.Contexts;
+using MyExpenses.Domain.Queries;
 using MyExpenses.Domain.Repositories;
+using MyExpenses.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,7 +25,27 @@ namespace MyExpenses.Domain.Infra.Repositories
             return _context.Connection.Query<bool>("spCheckEmail", new { Email = email }, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
         }
 
-        public void Save(User user)
+        public IEnumerable<ListUserQueryResult> Get() //Criar store procedure para melhorar visualmente o código
+        {
+            return _context.Connection.Query<ListUserQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email] FROM [Customer]", new {});
+        }
+
+        public GetUserQueryResult Get(Guid id)
+        {
+            return _context.Connection.Query<GetUserQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email] FROM [Customer] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
+        }
+
+        public IEnumerable<ListExpensesQueryResult> GetExpenses(Guid userId)
+        {
+            return _context.Connection.Query<ListExpensesQueryResult>("SELECT [Id], [Title], [Price], [IsSubscription] FROM [Expense] WHERE [UserId] = @userId", new { userId = userId });
+        }
+
+        public IEnumerable<ListIncomeQueryResult> GetIncomes(Guid userId) //Criar procedure
+        {
+            return _context.Connection.Query<ListIncomeQueryResult>("SELECT [Id], [Title], [Income] FROM [Income] WHERE [UserId] = @userId", new { userId = userId });
+        }
+
+        public void Save(User user) //Resolvido usando StoreProcedure
         {
             _context.Connection.Execute("spCreateUser", new
             {
@@ -36,6 +58,34 @@ namespace MyExpenses.Domain.Infra.Repositories
                 IsPremium = user.IsPremium,
                 EntryDate = user.EntryDate
             },  commandType: CommandType.StoredProcedure);
+        }
+
+        public void Save(IncomeSource incomeSource)
+        {
+            _context.Connection.Execute("spCreateIncome", new //Criar essa procedure para salvar a Income no Banco
+            {
+                Id = incomeSource.Id,
+                UserId = incomeSource.UserId,
+                Title = incomeSource.Title,
+                Income = incomeSource.Income
+            });
+        }
+
+        public void Save(Expense expense)
+        {
+            _context.Connection.Execute("spCreateExpense", new //Criar essa procedure para salvar a expense no Banco
+            {
+                Id = expense.Id,
+                UserId = expense.UserId,
+                Title = expense.Title,
+                Income = expense.Price,
+                IsSubscription = expense.IsSubscription
+            });
+        }
+
+        public void Update(Guid id, IncomeSource incomeSource)
+        {
+            _context.Connection.Query<IncomeSourceUpdateQueryResult>("spUpdateIncome", new { id = id }); //Passar update sp 
         }
     }
 }
