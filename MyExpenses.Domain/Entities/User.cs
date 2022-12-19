@@ -1,4 +1,5 @@
 ﻿using MyExpenses.Domain.ValueObjects;
+using SecureIdentity.Password;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace MyExpenses.Domain.Entities
         {
             Name = name;
             Email = email;
+            Password = PasswordGenerator.Generate(25, true, false);
+            Image = "none";
             IsPremium = false;
             EntryDate = DateTime.UtcNow;
             _incomes = new List<IncomeSource>();
@@ -45,6 +48,13 @@ namespace MyExpenses.Domain.Entities
         public void ChangePremiumStatus() 
         {
             IsPremium = true;
+        }
+        public void ChangePassword(string password)
+        {
+            if (password.Length < 8)
+                Notifications.Add("Password", "A senha deve conter mais que 8 characteres");
+            else
+                Password = password;
         }
         public void AddIncomeSource(IncomeSource incomeObject)
         {

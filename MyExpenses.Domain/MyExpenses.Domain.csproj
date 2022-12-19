@@ -12,4 +12,8 @@
     <None Remove="Commands\UserCommands - Cópia\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="SecureIdentity" Version="1.0.4" />
+  </ItemGroup>
+
 </Project>

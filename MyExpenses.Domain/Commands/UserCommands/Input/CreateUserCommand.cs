@@ -18,16 +18,16 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
             FirstName = firstName;
             LastName = lastName;
             Email = email;
-            Notifications = new Dictionary<string, string>();
         }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public IDictionary<string, string>? Notifications { get; set; }
 
         public bool Valid()
         {
+            Dictionary<string, string> Notifications = new Dictionary<string, string>();
+
             if (FirstName.Length < 3)
             {
                 Notifications.Add("FirstName", "O nome deve conter mais que 3 characteres");

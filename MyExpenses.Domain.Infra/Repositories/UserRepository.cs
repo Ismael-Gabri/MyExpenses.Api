@@ -27,12 +27,12 @@ namespace MyExpenses.Domain.Infra.Repositories
 
         public IEnumerable<ListUserQueryResult> Get() //Criar store procedure para melhorar visualmente o código
         {
-            return _context.Connection.Query<ListUserQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email] FROM [Customer]", new {});
+            return _context.Connection.Query<ListUserQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email] FROM [User]", new {});
         }
 
         public GetUserQueryResult Get(Guid id)
         {
-            return _context.Connection.Query<GetUserQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email] FROM [Customer] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
+            return _context.Connection.Query<GetUserQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email] FROM [User] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
         }
 
         public IEnumerable<ListExpensesQueryResult> GetExpenses(Guid userId)
@@ -52,7 +52,7 @@ namespace MyExpenses.Domain.Infra.Repositories
                 Id = user.Id,
                 FirstName = user.Name.FirstName,
                 LastName = user.Name.LastName,
-                Email = user.Email,
+                Email = user.Email.Address,
                 Password = user.Password,
                 Image = user.Image,
                 IsPremium = user.IsPremium,
@@ -78,14 +78,18 @@ namespace MyExpenses.Domain.Infra.Repositories
                 Id = expense.Id,
                 UserId = expense.UserId,
                 Title = expense.Title,
-                Income = expense.Price,
+                Price = expense.Price,
                 IsSubscription = expense.IsSubscription
-            });
+            },  commandType: CommandType.StoredProcedure);
         }
 
-        public void Update(Guid id, IncomeSource incomeSource)
+        public IncomeSourceUpdateQueryResult Update(Guid id, IncomeSource incomeSource)
         {
-            _context.Connection.Query<IncomeSourceUpdateQueryResult>("spUpdateIncome", new { id = id }); //Passar update sp 
+            return _context.Connection.Query<IncomeSourceUpdateQueryResult>("spUpdateIncome", new { id = id }).FirstOrDefault(); //Passar update sp 
+        }
+        public void Delete(Guid id)
+        {
+            _context.Connection.Query<IncomeSourceUpdateQueryResult>("DELETE FROM [Income] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
         }
     }
 }

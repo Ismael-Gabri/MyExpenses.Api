@@ -6,6 +6,7 @@ using MyExpenses.Domain.Handlers.Contracts;
 using MyExpenses.Domain.Repositories;
 using MyExpenses.Domain.Services;
 using MyExpenses.Domain.ValueObjects;
+using SecureIdentity.Password;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,18 +24,18 @@ namespace MyExpenses.Domain.Handlers
 
         public UserHandler(IUserRepository repository, IEmailService emailService)
         {
-            Notifications = new List<IDictionary<string, string>>();
+            Notifications = new Dictionary<string, string>();
 
             _repository = repository;
             _emailService = emailService;
         }
 
-        public List<IDictionary<string, string>> Notifications { get; set; }
+        public Dictionary<string, string> Notifications { get; set; }
         public ICommandResult Handle(CreateUserCommand command)
         {
             //Verificar se o E-mail já existe na base
             if (_repository.CheckEmail(command.Email))
-                command.Notifications.Add("Email", "Email já registrado no banco");
+                Notifications.Add("Email", "Email já registrado no banco");
 
             //Criar VOs
             var name = new Name(command.FirstName, command.LastName);
@@ -43,17 +44,7 @@ namespace MyExpenses.Domain.Handlers
             //Criar entidade
             var user = new User(name, email);
 
-            //Validar entidades e VOs
-            if(name.Notifications.Count > 0)
-            {
-                Notifications.Add(name.Notifications);
-            }
-            if(email.Notifications.Count > 0)
-            {
-                Notifications.Add(email.Notifications);
-            }
-
-            if (Notifications.Count > 0)
+            if (name.Notifications.Count > 0 && email.Notifications.Count > 0)
                 return null;
 
             //Persistir no banco
@@ -72,7 +63,7 @@ namespace MyExpenses.Domain.Handlers
 
             if(income.Notifications.Count > 0)
             {
-                Notifications.Add(income.Notifications);
+                //Retornar income notifications
                 return null;
             }
 
@@ -88,7 +79,7 @@ namespace MyExpenses.Domain.Handlers
 
             if(expense.Notifications.Count > 0)
             {
-                Notifications.Add(expense.Notifications);
+                //Retornar Expenses Notifications
                 return null;
             }
 

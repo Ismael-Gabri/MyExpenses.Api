@@ -9,6 +9,16 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
 {
     public class AddExpenseCommand : ICommand
     {
+        public AddExpenseCommand() { }
+
+        public AddExpenseCommand(Guid userId, string title, decimal price, bool isSubscription)
+        {
+            UserId = userId;
+            Title = title;
+            Price = price;
+            IsSubscription = isSubscription;
+        }
+
         public Guid UserId { get; set; }
         public string Title { get; set; }
         public decimal Price { get; set; }

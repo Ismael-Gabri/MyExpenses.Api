@@ -18,6 +18,7 @@ namespace MyExpenses.Domain.Api.Controllers
         public UserController(IUserRepository repository, UserHandler handler)
         {
             _repository = repository;
+            _handler = handler;
         }
         //GET
 
@@ -33,7 +34,7 @@ namespace MyExpenses.Domain.Api.Controllers
             return _repository.Get(id);
         }
 
-        [HttpGet("users/expenses")]
+        [HttpGet("users/{id:Guid}/expenses")]
         public IEnumerable<ListExpensesQueryResult> GetExpenses([FromRoute] Guid id)
         {
             return _repository.GetExpenses(id);
@@ -56,7 +57,7 @@ namespace MyExpenses.Domain.Api.Controllers
             return result;
         }
 
-        [HttpPost("user/incomes")]
+        [HttpPost("users/incomes")]
         public object Post([FromBody] AddIncomeSourceCommand command)
         {
             var result = (CreateIncomeCommandResult)_handler.Handle(command);
@@ -65,10 +66,10 @@ namespace MyExpenses.Domain.Api.Controllers
             return result;
         }
 
-        [HttpPost("user/expenses")]
+        [HttpPost("users/expenses")]
         public object Post([FromBody] AddExpenseCommand command)
         {
-            var result = _handler.Handle(command);
+            var result = (CreateExpenseCommandResult)_handler.Handle(command);
             if(_handler.Notifications.Count > 0)
                 return BadRequest(_handler.Notifications);
             return result;
@@ -76,21 +77,22 @@ namespace MyExpenses.Domain.Api.Controllers
 
         //PUT
 
-        [HttpPut("users/{id:Guid}")]
-        public User Post([FromRoute] Guid id, [FromBody] CreateUserCommand command) 
+        [HttpPut("users/income/{id:Guid}")]
+        public IncomeSourceUpdateQueryResult Post([FromRoute] Guid id, [FromBody] UpdateIncomeSourceCommand command) 
         {
-            var name = new Name(command.FirstName, command.LastName);
-            var email = new Email(command.Email);
-            var user = new User(name, email);
-            return user;
+            var income = new IncomeSource(command.Title, command.Income, command.UserId);
+            return _repository.Update(id, income);
         }
 
         //DELETE
 
-        [HttpDelete("users/{id:Guid}")]
+        [HttpDelete("users/income/{id:Guid}")]
         public object Delete([FromRoute] Guid id)
         {
-            return new { message = "Cliente removido com sucesso"};
+            _repository.Delete(id);
+            return new { message = "Renda removida com sucesso"};
         }
     }
 }
+
+//Criar Store procedures para Create e Update
