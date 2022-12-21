@@ -13,10 +13,11 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
         public Guid UserId { get; set; }
         public string Title { get; set; }
         public decimal Income { get; set; }
-        public IDictionary<string, string>? Notifications { get; set; }
 
         public bool Valid()
         {
+            Dictionary<string, string> Notifications = new Dictionary<string, string>();
+
             if (Title == "" || Title == null)
             {
                 Notifications.Add("IncomeSource Title", "Title vazio ou nulo");

@@ -68,12 +68,12 @@ namespace MyExpenses.Domain.Infra.Repositories
                 UserId = incomeSource.UserId,
                 Title = incomeSource.Title,
                 Income = incomeSource.Income
-            });
+            },  commandType: CommandType.StoredProcedure);
         }
 
         public void Save(Expense expense)
         {
-            _context.Connection.Execute("spCreateExpense", new //Criar essa procedure para salvar a expense no Banco
+            _context.Connection.Execute("spCreateExpense", new
             {
                 Id = expense.Id,
                 UserId = expense.UserId,
@@ -82,14 +82,17 @@ namespace MyExpenses.Domain.Infra.Repositories
                 IsSubscription = expense.IsSubscription
             },  commandType: CommandType.StoredProcedure);
         }
-
         public IncomeSourceUpdateQueryResult Update(Guid id, IncomeSource incomeSource)
         {
             return _context.Connection.Query<IncomeSourceUpdateQueryResult>("spUpdateIncome", new { id = id }).FirstOrDefault(); //Passar update sp 
         }
-        public void Delete(Guid id)
+        public void DeleteIncome(Guid id)
         {
-            _context.Connection.Query<IncomeSourceUpdateQueryResult>("DELETE FROM [Income] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
+            _context.Connection.Query<DeleteIncomeQueryResult>("DELETE FROM [Income] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
+        }
+        public void DeleteExpense(Guid id)
+        {
+            _context.Connection.Query<DeleteExpenseQueryResult>("DELETE FROM [Expense] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
         }
     }
 }

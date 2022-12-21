@@ -15,7 +15,8 @@ namespace MyExpenses.Domain.Repositories
         void Save(IncomeSource incomeSource);
         void Save(Expense expense);
         IncomeSourceUpdateQueryResult Update(Guid id, IncomeSource incomeSource);
-        void Delete(Guid id);
+        void DeleteIncome(Guid id);
+        void DeleteExpense(Guid id);
         IEnumerable<ListUserQueryResult> Get();
         GetUserQueryResult Get(Guid id);
         IEnumerable<ListIncomeQueryResult> GetIncomes(Guid userId);

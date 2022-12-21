@@ -40,7 +40,7 @@ namespace MyExpenses.Domain.Api.Controllers
             return _repository.GetExpenses(id);
         }
 
-        [HttpGet("users/incomes")]
+        [HttpGet("users/{id:Guid}/incomes")]
         public IEnumerable<ListIncomeQueryResult> GetIncomes([FromRoute] Guid id)
         {
             return _repository.GetIncomes(id);
@@ -77,7 +77,7 @@ namespace MyExpenses.Domain.Api.Controllers
 
         //PUT
 
-        [HttpPut("users/income/{id:Guid}")]
+        [HttpPut("users/income/{id:Guid}")] //implementar apenas para expenses e incomes
         public IncomeSourceUpdateQueryResult Post([FromRoute] Guid id, [FromBody] UpdateIncomeSourceCommand command) 
         {
             var income = new IncomeSource(command.Title, command.Income, command.UserId);
@@ -86,13 +86,18 @@ namespace MyExpenses.Domain.Api.Controllers
 
         //DELETE
 
-        [HttpDelete("users/income/{id:Guid}")]
-        public object Delete([FromRoute] Guid id)
+        [HttpDelete("users/income/{id:Guid}")] //Pegar o Id do usuário e da income e procurar no banco
+        public object DeleteIncome([FromRoute] Guid id)
         {
-            _repository.Delete(id);
+            _repository.DeleteIncome(id);
             return new { message = "Renda removida com sucesso"};
+        }
+
+        [HttpDelete("users/expenses/{id:Guid}")]
+        public object DeleteExpense([FromRoute] Guid id)
+        {
+            _repository.DeleteExpense(id);
+            return new { message = "Despesa removida com sucesso" };
         }
     }
 }
-
-//Criar Store procedures para Create e Update
