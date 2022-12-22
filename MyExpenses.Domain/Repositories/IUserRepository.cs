@@ -1,4 +1,5 @@
-﻿using MyExpenses.Domain.Entities;
+﻿using MyExpenses.Domain.Commands.UserCommands.Input;
+using MyExpenses.Domain.Entities;
 using MyExpenses.Domain.Queries;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace MyExpenses.Domain.Repositories
         void Save(User user);
         void Save(IncomeSource incomeSource);
         void Save(Expense expense);
-        IncomeSourceUpdateQueryResult Update(Guid id, IncomeSource incomeSource);
+        IncomeSourceUpdateQueryResult Update(UpdateIncomeSourceCommand incomeSource);
         void DeleteIncome(Guid id);
         void DeleteExpense(Guid id);
         IEnumerable<ListUserQueryResult> Get();

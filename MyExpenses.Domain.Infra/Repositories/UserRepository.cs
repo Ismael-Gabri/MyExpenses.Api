@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MyExpenses.Domain.Commands.UserCommands.Input;
 using MyExpenses.Domain.Entities;
 using MyExpenses.Domain.Infra.Contexts;
 using MyExpenses.Domain.Queries;
@@ -82,9 +83,9 @@ namespace MyExpenses.Domain.Infra.Repositories
                 IsSubscription = expense.IsSubscription
             },  commandType: CommandType.StoredProcedure);
         }
-        public IncomeSourceUpdateQueryResult Update(Guid id, IncomeSource incomeSource)
+        public IncomeSourceUpdateQueryResult Update(UpdateIncomeSourceCommand incomeUpdate)
         {
-            return _context.Connection.Query<IncomeSourceUpdateQueryResult>("spUpdateIncome", new { id = id }).FirstOrDefault(); //Passar update sp 
+            return _context.Connection.Query<IncomeSourceUpdateQueryResult>("UPDATE [Income] SET [Title] = @title, [Income] = @income WHERE [Id] = @id", new {title = incomeUpdate.Title, income = incomeUpdate.Income ,id = incomeUpdate.Id }).FirstOrDefault();
         }
         public void DeleteIncome(Guid id)
         {

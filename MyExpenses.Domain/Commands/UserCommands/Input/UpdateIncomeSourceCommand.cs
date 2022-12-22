@@ -9,7 +9,7 @@ namespace MyExpenses.Domain.Commands.UserCommands.Input
 {
     public class UpdateIncomeSourceCommand : ICommand
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public decimal Income { get; set; }
 

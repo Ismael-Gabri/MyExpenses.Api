@@ -77,16 +77,15 @@ namespace MyExpenses.Domain.Api.Controllers
 
         //PUT
 
-        [HttpPut("users/income/{id:Guid}")] //implementar apenas para expenses e incomes
-        public IncomeSourceUpdateQueryResult Post([FromRoute] Guid id, [FromBody] UpdateIncomeSourceCommand command) 
+        [HttpPut("users/income")] //implementar apenas para expenses e incomes
+        public IncomeSourceUpdateQueryResult UpdateIncome([FromBody] UpdateIncomeSourceCommand command) 
         {
-            var income = new IncomeSource(command.Title, command.Income, command.UserId);
-            return _repository.Update(id, income);
+            return _repository.Update(command);
         }
 
         //DELETE
 
-        [HttpDelete("users/income/{id:Guid}")] //Pegar o Id do usuário e da income e procurar no banco
+        [HttpDelete("users/income/{id:Guid}")]
         public object DeleteIncome([FromRoute] Guid id)
         {
             _repository.DeleteIncome(id);
