@@ -95,5 +95,10 @@ namespace MyExpenses.Domain.Infra.Repositories
         {
             _context.Connection.Query<DeleteExpenseQueryResult>("DELETE FROM [Expense] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
         }
+
+        public ExpenseUpdateQueryResult Update(UpdateExpenseCommand expense)
+        {
+            return _context.Connection.Query<ExpenseUpdateQueryResult>("UPDATE [Expense] SET [Title] = @title, [Price] = @price WHERE [Id] = @id", new { title = expense.Title, price = expense.Price, id = expense.Id }).FirstOrDefault();
+        }
     }
 }

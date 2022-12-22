@@ -49,7 +49,7 @@ namespace MyExpenses.Domain.Api.Controllers
         //POST
 
         [HttpPost("users")]
-        public object Post([FromBody] CreateUserCommand command) //Create user command result, não object
+        public object Post([FromBody] CreateUserCommand command)
         {
             var result = (CreateUserCommandResult)_handler.Handle(command);
             if (_handler.Notifications.Count > 0)
@@ -61,7 +61,7 @@ namespace MyExpenses.Domain.Api.Controllers
         public object Post([FromBody] AddIncomeSourceCommand command)
         {
             var result = (CreateIncomeCommandResult)_handler.Handle(command);
-            if(_handler.Notifications.Count > 0) //Testar if _handler = null
+            if(_handler.Notifications.Count > 0)
                 return BadRequest(_handler.Notifications);
             return result;
         }
@@ -77,8 +77,14 @@ namespace MyExpenses.Domain.Api.Controllers
 
         //PUT
 
-        [HttpPut("users/income")] //implementar apenas para expenses e incomes
+        [HttpPut("users/income")]
         public IncomeSourceUpdateQueryResult UpdateIncome([FromBody] UpdateIncomeSourceCommand command) 
+        {
+            return _repository.Update(command);
+        }
+
+        [HttpPut("users/expenses")]
+        public ExpenseUpdateQueryResult UpdateExpense([FromBody] UpdateExpenseCommand command)
         {
             return _repository.Update(command);
         }
