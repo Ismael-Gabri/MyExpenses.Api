@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyExpenses.Domain.Services
+namespace MyExpenses.Domain.Services.Contracts
 {
     public interface IEmailService
     {

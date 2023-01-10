@@ -4,7 +4,7 @@ using MyExpenses.Domain.Commands.UserCommands.Output;
 using MyExpenses.Domain.Entities;
 using MyExpenses.Domain.Handlers.Contracts;
 using MyExpenses.Domain.Repositories;
-using MyExpenses.Domain.Services;
+using MyExpenses.Domain.Services.Contracts;
 using MyExpenses.Domain.ValueObjects;
 using SecureIdentity.Password;
 using System;

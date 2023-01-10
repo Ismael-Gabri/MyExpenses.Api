@@ -104,5 +104,9 @@ namespace MyExpenses.Domain.Api.Controllers
             _repository.DeleteExpense(id);
             return new { message = "Despesa removida com sucesso" };
         }
+
+        //Fazer authentication e Authorization para os usuários
+        //Criar o Serviço de envio de Email
+        //Fazer métodos para calcular o total da expense e income. Usar os Handlers
     }
 }

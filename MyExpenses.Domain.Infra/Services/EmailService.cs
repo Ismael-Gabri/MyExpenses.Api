@@ -1,4 +1,4 @@
-﻿using MyExpenses.Domain.Services;
+﻿using MyExpenses.Domain.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
