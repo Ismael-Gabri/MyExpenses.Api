@@ -21,7 +21,7 @@ namespace MyExpenses.Domain.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new (ClaimTypes.Name, "Ismael Gabri"),
+                    new (ClaimTypes.Name, "ismaelgabri"),
                     new (ClaimTypes.Role, "admin")
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),

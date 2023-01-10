@@ -18,7 +18,7 @@ builder.Services.AddScoped<DataContext, DataContext>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<UserHandler, UserHandler>();
-builder.Services.AddTransient<TokenService, TokenService>();
+builder.Services.AddTransient<TokenService>();
 
 var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
 
@@ -52,11 +52,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMvc();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMvc();
 
 app.MapControllers();
 
