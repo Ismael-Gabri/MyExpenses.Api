@@ -13,12 +13,12 @@ namespace MyExpenses.Domain.Entities
         private readonly IList<IncomeSource> _incomes;
         private readonly IList<Expense> _expenses;
         public User (Name name,
-            Email email
+            Email email, string password
             )
         {
             Name = name;
             Email = email;
-            Password = PasswordGenerator.Generate(25, true, false);
+            Password = password;
             Image = "none";
             IsPremium = false;
             EntryDate = DateTime.UtcNow;

@@ -100,5 +100,10 @@ namespace MyExpenses.Domain.Infra.Repositories
         {
             return _context.Connection.Query<ExpenseUpdateQueryResult>("UPDATE [Expense] SET [Title] = @title, [Price] = @price WHERE [Id] = @id", new { title = expense.Title, price = expense.Price, id = expense.Id }).FirstOrDefault();
         }
+
+        public GetUserByEmailQueryResult GetByEmail(string email)
+        {
+            return _context.Connection.Query<GetUserByEmailQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email], [Password] FROM [User] WHERE [Email] = @email", new { email = email }).FirstOrDefault();
+        }
     }
 }

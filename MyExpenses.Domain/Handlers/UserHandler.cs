@@ -41,8 +41,12 @@ namespace MyExpenses.Domain.Handlers
             var name = new Name(command.FirstName, command.LastName);
             var email = new Email(command.Email);
 
+            //Gerar e Codificar senha 32 characteres
+            var password = PasswordGenerator.Generate(25);
+            var passwordHash = PasswordHasher.Hash(password);
+
             //Criar entidade
-            var user = new User(name, email);
+            var user = new User(name, email, passwordHash);
 
             if (name.Notifications.Count > 0 && email.Notifications.Count > 0)
                 return null;
@@ -54,7 +58,7 @@ namespace MyExpenses.Domain.Handlers
             _emailService.Send(email.Address, "hello@myexpenses.io", "Bem-vindo", "Seja bem vindo ao My Expenses");
 
             //Retornar resultado para a tela
-            return new CreateUserCommandResult(user.Id, name.FirstName, name.LastName, email.Address);
+            return new CreateUserCommandResult(user.Id, name.FirstName, name.LastName, email.Address, password);
         }
 
         public ICommandResult Handle(AddIncomeSourceCommand command)
