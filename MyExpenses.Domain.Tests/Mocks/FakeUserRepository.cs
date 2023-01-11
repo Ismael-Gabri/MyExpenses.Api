@@ -37,6 +37,11 @@ namespace MyExpenses.Domain.Tests.Fakes
             throw new NotImplementedException();
         }
 
+        public GetUserByEmailQueryResult GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ListExpensesQueryResult> GetExpenses(Guid userId)
         {
             throw new NotImplementedException();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyExpenses.Domain.Entities;
+using MyExpenses.Domain.Queries;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,7 +14,7 @@ namespace MyExpenses.Domain.Services
 {
     public class TokenService
     {
-        public string GenerateToken(User user)
+        public string GenerateToken(GetUserByEmailQueryResult user)
         {
             var tokenHandler = new JwtSecurityTokenHandler(); //Token Handler
             var key = Encoding.ASCII.GetBytes(Configuration.JwtKey); //Codificar a key para array de bytes para o Handler
@@ -21,8 +22,9 @@ namespace MyExpenses.Domain.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new (ClaimTypes.Name, "ismaelgabri"),
-                    new (ClaimTypes.Role, "admin")
+                    new (ClaimTypes.Name, user.Name),
+                    new ("Email", user.Email),
+                    new (ClaimTypes.Role, "user")
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

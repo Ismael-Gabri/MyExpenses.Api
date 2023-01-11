@@ -21,6 +21,7 @@ namespace MyExpenses.Domain.Repositories
         void DeleteExpense(Guid id);
         IEnumerable<ListUserQueryResult> Get();
         GetUserQueryResult Get(Guid id);
+        GetUserByEmailQueryResult GetByEmail(string email);
         IEnumerable<ListIncomeQueryResult> GetIncomes(Guid userId);
         IEnumerable<ListExpensesQueryResult> GetExpenses(Guid userId);
     }
