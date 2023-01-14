@@ -103,7 +103,7 @@ namespace MyExpenses.Domain.Infra.Repositories
 
         public GetUserByEmailQueryResult GetByEmail(string email)
         {
-            return _context.Connection.Query<GetUserByEmailQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email], [Password] FROM [User] WHERE [Email] = @email", new { email = email }).FirstOrDefault();
+            return _context.Connection.Query<GetUserByEmailQueryResult>("SELECT [Id], CONCAT([FirstName],' ', [LastName]) AS [Name], [Email], [Password] FROM [User] WHERE [Email] = @email", new { email = email }).FirstOrDefault();
         }
     }
 }

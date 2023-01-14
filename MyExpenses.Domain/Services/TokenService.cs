@@ -22,8 +22,32 @@ namespace MyExpenses.Domain.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new ("Id", user.Id.ToString()),
                     new (ClaimTypes.Name, user.Name),
                     new ("Email", user.Email),
+                    new (ClaimTypes.Role, "user")
+                }),
+                Expires = DateTime.UtcNow.AddHours(8),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            //Criar configurações do token
+
+            var token = tokenHandler.CreateToken(tokenDescriptor); //Criar token baseado no token description
+            return tokenHandler.WriteToken(token); //Retornar token em formato string
+        }
+
+        public string GenerateAdminToken(GetUserByEmailQueryResult user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler(); //Token Handler
+            var key = Encoding.ASCII.GetBytes(Configuration.JwtKey); //Codificar a key para array de bytes para o Handler
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new ("Id", user.Id.ToString()),
+                    new (ClaimTypes.Name, user.Name),
+                    new ("Email", user.Email),
+                    new (ClaimTypes.Role, "admin"),
                     new (ClaimTypes.Role, "user")
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),

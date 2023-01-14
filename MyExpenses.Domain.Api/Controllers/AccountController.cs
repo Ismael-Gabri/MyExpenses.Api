@@ -32,6 +32,12 @@ namespace MyExpenses.Domain.Api.Controllers
             if (!PasswordHasher.Verify(user.Password, model.Password))
                 return StatusCode(401, "Usuário ou senha inválidos");
 
+            if(model.Email == Configuration.AdminEmail)
+            {
+                var tokenAdmin = tokenService.GenerateAdminToken(user);
+                return Ok(tokenAdmin);
+            }
+
             var token = tokenService.GenerateToken(user);
 
             return Ok(token);
