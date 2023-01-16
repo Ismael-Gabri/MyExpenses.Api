@@ -8,6 +8,6 @@ namespace MyExpenses.Domain.Services.Contracts
 {
     public interface IEmailService
     {
-        void Send(string to, string from, string subject, string body);
+        void Send(string toName, string toEmail, string fromName, string fromEmail);
     }
 }

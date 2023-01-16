@@ -55,7 +55,7 @@ namespace MyExpenses.Domain.Handlers
             _repository.Save(user);
 
             //Enviar Email
-            _emailService.Send(email.Address, "hello@myexpenses.io", "Bem-vindo", "Seja bem vindo ao My Expenses");
+            _emailService.Send(user.Name.FirstName, email.Address, "Time MyExpenses","hello@myexpenses.io");
 
             //Retornar resultado para a tela
             return new CreateUserCommandResult(user.Id, name.FirstName, name.LastName, email.Address, password);

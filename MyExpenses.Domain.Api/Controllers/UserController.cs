@@ -38,8 +38,8 @@ namespace MyExpenses.Domain.Api.Controllers
             return _repository.Get(id);
         }
 
-        [HttpGet("users/{id:Guid}/expenses")]
-        [Authorize(Roles = "user")] //Rever 
+        [HttpGet("v1/users/{id:Guid}/expenses")]
+        [Authorize(Roles = "user")]
         public IEnumerable<ListExpensesQueryResult> GetExpenses([FromRoute] Guid id)
         {
             return _repository.GetExpenses(id);
@@ -47,9 +47,18 @@ namespace MyExpenses.Domain.Api.Controllers
 
         [HttpGet("users/{id:Guid}/incomes")]
         [Authorize(Roles = "user")]
-        public IEnumerable<ListIncomeQueryResult> GetIncomes([FromRoute] Guid id)
+        public IEnumerable<ListIncomeQueryResult> GetIncomes([FromRoute] string id)
         {
             return _repository.GetIncomes(id);
+        }
+
+        [HttpGet("v2/users/incomes")]
+        [Authorize(Roles = "user")]
+        public IEnumerable<ListIncomeQueryResult> GetIncomesV2()
+        {
+            var user = User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value;
+            var result = _repository.GetIncomes(user);
+            return result;
         }
 
         //POST

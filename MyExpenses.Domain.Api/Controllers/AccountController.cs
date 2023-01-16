@@ -42,21 +42,5 @@ namespace MyExpenses.Domain.Api.Controllers
 
             return Ok(token);
         }
-
-        //Tests
-        [HttpPost("v1/login/test")]
-        public IActionResult LoginTest([FromServices]TokenService tokenService)
-        {
-            var token = tokenService.GenerateToken(null);
-
-            return Ok(token);
-        }
-
-        [HttpGet("v1/login/admin")]
-        [Authorize(Roles = "admin")]
-        public IActionResult GetAdmin()
-        {
-            return Ok(User.Identity.Name);
-        }
     }
 }
