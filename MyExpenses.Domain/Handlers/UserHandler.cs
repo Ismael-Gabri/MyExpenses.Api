@@ -61,9 +61,9 @@ namespace MyExpenses.Domain.Handlers
             return new CreateUserCommandResult(user.Id, name.FirstName, name.LastName, email.Address, password);
         }
 
-        public ICommandResult Handle(AddIncomeSourceCommand command)
+        public ICommandResult Handle(AddIncomeSourceCommand command, string userId)
         {
-            var income = new IncomeSource(command.Title, command.Income, command.UserId);
+            var income = new IncomeSource(command.Title, command.Income, userId);
 
             if(income.Notifications.Count > 0)
             {
@@ -77,9 +77,9 @@ namespace MyExpenses.Domain.Handlers
             return new CreateIncomeCommandResult(income.Id, income.Title, income.Income);
         }
 
-        public ICommandResult Handle(AddExpenseCommand command)
+        public ICommandResult Handle(AddExpenseCommand command, string userId)
         {
-            var expense = new Expense(command.Title, command.Price, command.UserId);
+            var expense = new Expense(command.Title, command.Price, userId);
 
             if(expense.Notifications.Count > 0)
             {

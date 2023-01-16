@@ -23,6 +23,6 @@ namespace MyExpenses.Domain.Repositories
         GetUserQueryResult Get(Guid id);
         GetUserByEmailQueryResult GetByEmail(string email);
         IEnumerable<ListIncomeQueryResult> GetIncomes(string userId);
-        IEnumerable<ListExpensesQueryResult> GetExpenses(Guid userId);
+        IEnumerable<ListExpensesQueryResult> GetExpenses(string userId);
     }
 }
