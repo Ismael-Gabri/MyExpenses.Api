@@ -8,7 +8,7 @@ namespace MyExpenses.Domain.Entities
 {
     public class Expense : Entity
     {
-        public Expense(string title, decimal price, Guid userId)
+        public Expense(string title, decimal price, string userId)
         {
             Title = title;
             Price = price;
@@ -26,7 +26,7 @@ namespace MyExpenses.Domain.Entities
                 Notifications.Add("Expense Price", "Preço não pode ser nulo");
         }
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public string Title { get; private set; }
         public decimal Price { get; private set; }
         public bool IsSubscription { get; private set; }

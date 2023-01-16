@@ -36,7 +36,7 @@ namespace MyExpenses.Domain.Infra.Repositories
             return _context.Connection.Query<GetUserQueryResult>("SELECT [Id], CONCAT([FirstName],'', [LastName]) AS [Name], [Email] FROM [User] WHERE [Id] = @id", new { id = id }).FirstOrDefault();
         }
 
-        public IEnumerable<ListExpensesQueryResult> GetExpenses(Guid userId)
+        public IEnumerable<ListExpensesQueryResult> GetExpenses(string userId)
         {
             return _context.Connection.Query<ListExpensesQueryResult>("SELECT [Id], [Title], [Price], [IsSubscription] FROM [Expense] WHERE [UserId] = @userId", new { userId = userId });
         }

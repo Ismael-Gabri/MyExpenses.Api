@@ -31,7 +31,7 @@ namespace MyExpenses.Domain.Api.Controllers
             return _repository.Get();
         }
 
-        [HttpGet("users/{id:Guid}")]
+        [HttpGet("v1/users/{id:Guid}")]
         [Authorize(Roles = "admin")]
         public GetUserQueryResult GetById([FromRoute] Guid id)
         {
@@ -40,12 +40,12 @@ namespace MyExpenses.Domain.Api.Controllers
 
         [HttpGet("v1/users/{id:Guid}/expenses")]
         [Authorize(Roles = "user")]
-        public IEnumerable<ListExpensesQueryResult> GetExpenses([FromRoute] Guid id)
+        public IEnumerable<ListExpensesQueryResult> GetExpenses([FromRoute] string id)
         {
             return _repository.GetExpenses(id);
         }
 
-        [HttpGet("users/{id:Guid}/incomes")]
+        [HttpGet("v1/users/{id:Guid}/incomes")]
         [Authorize(Roles = "user")]
         public IEnumerable<ListIncomeQueryResult> GetIncomes([FromRoute] string id)
         {
@@ -58,6 +58,15 @@ namespace MyExpenses.Domain.Api.Controllers
         {
             var user = User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value;
             var result = _repository.GetIncomes(user);
+            return result;
+        }
+
+        [HttpGet("v2/users/expenses")]
+        [Authorize(Roles = "user")]
+        public IEnumerable<ListExpensesQueryResult> GetExpensesV2()
+        {
+            var user = User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value;
+            var result = _repository.GetExpenses(user);
             return result;
         }
 
@@ -77,7 +86,8 @@ namespace MyExpenses.Domain.Api.Controllers
         [Authorize(Roles = "user")]
         public object Post([FromBody] AddIncomeSourceCommand command)
         {
-            var result = (CreateIncomeCommandResult)_handler.Handle(command);
+            var user = User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value;
+            var result = (CreateIncomeCommandResult)_handler.Handle(command, user);
             if(_handler.Notifications.Count > 0)
                 return BadRequest(_handler.Notifications);
             return result;
@@ -87,7 +97,8 @@ namespace MyExpenses.Domain.Api.Controllers
         [Authorize(Roles = "user")]
         public object Post([FromBody] AddExpenseCommand command)
         {
-            var result = (CreateExpenseCommandResult)_handler.Handle(command);
+            var user = User.Claims.FirstOrDefault(x => x.Type == "Id")?.Value;
+            var result = (CreateExpenseCommandResult)_handler.Handle(command, user);
             if(_handler.Notifications.Count > 0)
                 return BadRequest(_handler.Notifications);
             return result;
