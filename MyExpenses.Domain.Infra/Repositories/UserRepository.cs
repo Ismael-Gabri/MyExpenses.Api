@@ -41,7 +41,7 @@ namespace MyExpenses.Domain.Infra.Repositories
             return _context.Connection.Query<ListExpensesQueryResult>("SELECT [Id], [Title], [Price], [IsSubscription] FROM [Expense] WHERE [UserId] = @userId", new { userId = userId });
         }
 
-        public IEnumerable<ListIncomeQueryResult> GetIncomes(Guid userId) //Criar procedure
+        public IEnumerable<ListIncomeQueryResult> GetIncomes(string userId) //Criar procedure
         {
             return _context.Connection.Query<ListIncomeQueryResult>("SELECT [Id], [Title], [Income] FROM [Income] WHERE [UserId] = @userId", new { userId = userId });
         }
