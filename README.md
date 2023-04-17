@@ -19,7 +19,7 @@ O algorítmo que optei para encriptar os itens do token é o HmacSha256. O token
 ![Web 3](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Token%20Service.png)
 
 # Tecnologias utilizadas
-## Back end
+## Backend
 - C#
 - .NET
 - Entitiy Framework Core
@@ -27,7 +27,7 @@ O algorítmo que optei para encriptar os itens do token é o HmacSha256. O token
 ## Banco de dados
 - MySQL
 - Docker
-## Front end
+## Frontend
 - HTML / CSS / JS / TypeScript
 - Angular
 
