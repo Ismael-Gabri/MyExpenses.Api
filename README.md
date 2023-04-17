@@ -9,7 +9,7 @@ My Expenses.API é uma aplicação web construída por mim após realizar o curs
 
 A aplicação consiste em realizar uma overview sobre as despesas e gastos do usuário, agindo como um app de controle financeiro, onde o usuário fará log in e irá listar suas despesas e suas entradas monetárias mensais, dessa forma a aplicação irá gerar projeções e gráficos baseando-se nesses dados.
 
-## Implementação do Login
+## Implementação do Log in
 ![Web 1](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Medium%20Login%20Screen.png)
 asdasd
 
