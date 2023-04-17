@@ -9,11 +9,9 @@ My Expenses.API é uma aplicação web construída por mim após realizar o curs
 
 A aplicação consiste em realizar uma overview sobre as despesas e gastos do usuário, agindo como um app de controle financeiro, onde o usuário fará log in e irá listar suas despesas e suas entradas monetárias mensais, dessa forma a aplicação irá gerar projeções e gráficos baseando-se nesses dados.
 
-## 
-![Mobile 1](https://github.com/acenelio/assets/raw/main/sds1/mobile1.png) ![Mobile 2](https://github.com/acenelio/assets/raw/main/sds1/mobile2.png)
-
-## Layout web
+## Implementação do Login
 ![Web 1](https://github.com/acenelio/assets/raw/main/sds1/web1.png)
+asdasd
 
 ![Web 2](https://github.com/acenelio/assets/raw/main/sds1/web2.png)
 
