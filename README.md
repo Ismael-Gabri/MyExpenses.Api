@@ -13,7 +13,7 @@ A aplicação consiste em realizar uma overview sobre as despesas e gastos do us
 ![Web 1](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Medium%20Login%20Screen.png)
 O sistema de log in foi projetado com JWT Bearer, o código irá utilizar o email e a senha de usuário para no fim gerar um Token de acesso, dessa forma o usuário poderá performar requisições padrões de um usuário logado. O token gerado tem um tempo de validade de 8 horas, sendo necessário realizar um novo log in após esse período.
 
-![Web 2](https://github.com/acenelio/assets/raw/main/sds1/web2.png)
+![Web 2](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Login%20Requisition%202.png)
 
 ## Modelo conceitual
 ![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
