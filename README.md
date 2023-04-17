@@ -15,9 +15,6 @@ O sistema de log in foi projetado com JWT Bearer, o código irá utilizar o emai
 
 ![Web 2](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Login%20Requisition%202.png)
 
-## Modelo conceitual
-![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
-
 # Tecnologias utilizadas
 ## Back end
 - C#
