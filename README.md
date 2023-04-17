@@ -16,6 +16,8 @@ O sistema de log in foi projetado com JWT Bearer, o código irá utilizar o emai
 ![Web 2](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Login%20Requisition%202.png)
 O algorítmo que optei para encriptar os itens do token é o HmacSha256. O token gerado tem um tempo de validade de 8 horas, sendo necessário realizar um novo log in após esse período.
 
+![Web 3](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Login%20Requisition%202.png)
+
 # Tecnologias utilizadas
 ## Back end
 - C#
