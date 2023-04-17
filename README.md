@@ -14,7 +14,7 @@ A aplicação consiste em realizar uma overview sobre as despesas e rendas do us
 O sistema de log in foi projetado com JWT Bearer, o código irá utilizar o email e a senha de usuário para no fim gerar um Token de acesso, dessa forma o usuário poderá performar requisições padrões de um usuário logado, como por exemplo, realizar um CRUD completo em suas despesas e rendas.
 
 ![Web 2](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Login%20Requisition%202.png)
-O algorítmo que optei para encriptar os itens do token é o HmacSha256. O token gerado tem um tempo de validade de 8 horas, sendo necessário realizar um novo log in após esse período, abaixo você podemos ver como é feita a criação do token
+O algorítmo que optei para encriptar os itens do token é o HmacSha256. O token gerado tem um tempo de validade de 8 horas, sendo necessário realizar um novo log in após esse período, abaixo podemos ver como é feita a criação do token
 
 ![Web 3](https://github.com/Ismael-Gabri/assets/blob/main/imagens/Token%20Service.png)
 
