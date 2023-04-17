@@ -23,7 +23,6 @@ O algorítmo que optei para encriptar os itens do token é o HmacSha256. O token
 - C#
 - .NET
 - Entitiy Framework Core
-- Maven
 ## Banco de dados
 - MySQL
 - Docker
